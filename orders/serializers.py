@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from .models import OrderItem, Order
+from offers.models import Offer
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -41,3 +42,16 @@ class OrderSerializer(serializers.ModelSerializer):
             'status',
             'total_price'
         ]
+
+
+class OrderItemCreateSerializer(serializers.Serializer):
+    offer = serializers.PrimaryKeyRelatedField(
+        queryset=Offer.objects.all()
+    )
+    quantity = serializers.IntegerField(min_value=1)
+
+
+class OrderCreateSerializer(serializers.Serializer):
+    items = OrderItemCreateSerializer(many=True)
+    class Meta:
+        pass
