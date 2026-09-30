@@ -48,10 +48,12 @@ class OrderItemCreateSerializer(serializers.Serializer):
     offer = serializers.PrimaryKeyRelatedField(
         queryset=Offer.objects.all()
     )
-    quantity = serializers.IntegerField(min_value=1)
+    quantity = serializers.IntegerField(
+        min_value=1
+    )
 
 
 class OrderCreateSerializer(serializers.Serializer):
-    items = OrderItemCreateSerializer(many=True)
-    class Meta:
-        pass
+    items = OrderItemCreateSerializer(
+        many=True
+    )
