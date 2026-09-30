@@ -3,6 +3,8 @@ from django.db import transaction
 from offers.models import Offer
 from orders.models import Order, OrderItem
 
+class InsufficientStockError(Exception):
+    pass
 
 class OrderService:
 
@@ -23,7 +25,7 @@ class OrderService:
                 unit_price = offer.price
 
                 if item['quantity'] > offer.stock:
-                    raise serializer.V("Not enough stock.")
+                    raise InsufficientStockError("Not enough stock.")
 
                 offer.stock -= item['quantity']
                 offer.save()
