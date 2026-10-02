@@ -3,14 +3,15 @@ from django.db import transaction
 from offers.models import Offer
 from orders.models import Order, OrderItem
 
+
 class InsufficientStockError(Exception):
     pass
+
 
 class OrderService:
 
     def create_order(self, user, items):
         with transaction.atomic():
-
             order = Order.objects.create(
                 user=user
             )
@@ -25,7 +26,9 @@ class OrderService:
                 unit_price = offer.price
 
                 if item['quantity'] > offer.stock:
-                    raise InsufficientStockError("Not enough stock.")
+                    raise InsufficientStockError(
+                        "Not enough stock."
+                    )
 
                 offer.stock -= item['quantity']
                 offer.save()
@@ -45,3 +48,23 @@ class OrderService:
             order.save()
 
             return order
+
+    def cancel_order(self, user, order):
+        with transaction.atomic():
+
+            if order.status == Order.OrderStatus.PENDING:
+
+                for item in order.items.all():
+                    offer = Offer.objects.select_for_update().get(
+                        pk=item.offer.pk
+                    )
+
+                    offer.stock += item.quantity
+                    offer.save()
+
+                order.status = Order.OrderStatus.CANCELLED
+                order.save()
+
+                return True
+
+            return False
