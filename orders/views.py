@@ -71,3 +71,6 @@ class OrderViewSet(ModelViewSet):
             {'detail': 'Order cancelled successfully.'},
             status=status.HTTP_200_OK
         )
+    
+    def destroy(self, request, *args, **kwargs):
+        return Response({'detail':'Order cannot be deleted.'},status=status.HTTP_405_METHOD_NOT_ALLOWED)
