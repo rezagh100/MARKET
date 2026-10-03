@@ -55,5 +55,5 @@ class OrderItemCreateSerializer(serializers.Serializer):
 
 class OrderCreateSerializer(serializers.Serializer):
     items = OrderItemCreateSerializer(
-        many=True
+        many=True,allow_empty=False
     )
