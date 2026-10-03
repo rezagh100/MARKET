@@ -2,6 +2,8 @@ from django.db import transaction
 
 from offers.models import Offer
 from orders.models import Order, OrderItem
+from payments.services import PaymentService
+
 
 
 class InsufficientStockError(Exception):
@@ -46,7 +48,7 @@ class OrderService:
 
             order.total_price = total_price
             order.save()
-
+            PaymentService().create_payment(order=order)
             return order
 
     def cancel_order(self, user, order):
