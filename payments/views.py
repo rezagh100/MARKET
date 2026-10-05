@@ -12,6 +12,8 @@ class PaymentViewSet(ModelViewSet):
     serializer_class = PaymentSerializer
     permission_classes = [IsAuthenticated]
     
+    def get_queryset(self):
+        return Payment.objects.filter(order__user=self.request.user)
     
     @action(detail=True,methods=['post'])
     def pay(self,request,pk=None):

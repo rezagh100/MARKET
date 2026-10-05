@@ -1,0 +1,15 @@
+services:
+  web:
+    build: .
+    container_name: market-web
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+
+  redis:
+    container_name: market-redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
