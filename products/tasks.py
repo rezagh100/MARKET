@@ -1,7 +1,7 @@
 from celery import shared_task
-
+from time import sleep
 
 @shared_task
-def test_task():
+def sendEmail():
+    sleep(3)
     print("Task executed")
-    return "done"
