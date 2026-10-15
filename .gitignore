@@ -5,3 +5,7 @@ db.sqlite3
 .env
 .idea/
 .vscode
+celerybeat-schedule
+celerybeat-schedule.db
+celerybeat-schedule-shm
+celerybeat-schedule-wal
