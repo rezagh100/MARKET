@@ -11,7 +11,7 @@ class SellerProfileSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         user = self.context['request'].user
 
-        if SellerProfile.objects.filter(user=user).exists():
+        if not self.instance and SellerProfile.objects.filter(user=user).exists():
             raise serializers.ValidationError(
                 "Each user can have only one seller profile."
             )

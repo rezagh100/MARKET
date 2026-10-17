@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from .permissions import IsStoreOwner
 
 class SellerProfileViewSet(ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsStoreOwner]
     queryset = SellerProfile.objects.all()
     serializer_class = SellerProfileSerializer
     
