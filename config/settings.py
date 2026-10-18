@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "offers",
     "orders",
     "payments",
+    "ai_assistant",
 ]
 
 MIDDLEWARE = [
