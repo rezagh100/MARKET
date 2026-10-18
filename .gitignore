@@ -10,3 +10,5 @@ celerybeat-schedule.db
 celerybeat-schedule-shm
 celerybeat-schedule-wal
 staticfiles/
+market-data.json
+db.sqlite3.bak

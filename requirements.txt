@@ -27,3 +27,4 @@ tzdata==2026.4
 tzlocal==5.4.4
 vine==5.1.0
 wcwidth==0.9.2
+psycopg[binary]>=3.2,<4.0
